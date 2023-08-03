@@ -43,29 +43,29 @@ loss_fn = nn.MSELoss()
 # Training flow
 if __name__ == "__main__":
     print("Starting...")
-    lowest_loss = 100
-    for epoch in range(100000):
-        for batch in trainloader:
-            x,y = batch
-            x, y = x.to('cuda'), y.to('cuda')
-            yhat = prd(x)
-            loss = loss_fn(yhat, y)
+    # lowest_loss = 100
+    # for epoch in range(1000):
+    #     for batch in trainloader:
+    #         x,y = batch
+    #         x, y = x.to('cuda'), y.to('cuda')
+    #         yhat = prd(x)
+    #         loss = loss_fn(yhat, y)
 
-            if loss < lowest_loss:
-                lowest_loss = loss
-                with open('model_state.pt', 'wb') as f:
-                    save(prd.state_dict(), f)
+    #         if loss < lowest_loss:
+    #             lowest_loss = loss
+    #             with open('model_state.pt', 'wb') as f:
+    #                 save(prd.state_dict(), f)
 
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
+    #         opt.zero_grad()
+    #         loss.backward()
+    #         opt.step()
 
-        #print(f"Epoch: {epoch} loss is {loss.item()}")
-    #print(lowest_loss)
-    # with open('model_state.pt', 'wb') as f:
-    #     save(prd.state_dict(), f)
+    #     print(f"Epoch: {epoch} loss is {loss.item()}")
+        # print(lowest_loss)
+        # with open('model_state.pt', 'wb') as f:
+        #     save(prd.state_dict(), f)
 
-    print(lowest_loss)
+        # print(lowest_loss)
     with open('model_state.pt', 'rb') as f: 
         prd.load_state_dict(load(f))  
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     
     
     stat_tensor = torch.tensor(stats, dtype=torch.float32)
-    stat_tensor = stat_tensor.to("cuda")
+    stat_tensor = stat_tensor.to('cuda')
     print((prd(stat_tensor)))
  
 
