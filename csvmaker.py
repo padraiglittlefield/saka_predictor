@@ -1,6 +1,6 @@
 import pandas as pd
 import csv
-
+import team_stats as ts
 # file_out = pd.read_csv("csvFiles\\training_stats_22.csv")
 # print(file_out)
 
@@ -10,18 +10,20 @@ import csv
 def create_data(training_stats, saka_output, prem_away, prem_home):
     squad = "Arsenal"
     team_dict = {}
-    for i in [prem_away, prem_home]: 
-        dict_reader = csv.DictReader(open(i))
-        for row in dict_reader:
-            team_name = ""
-            stats = []
+    teamstatmaker = ts.TeamStatMaker()
+    team_dict = teamstatmaker.make_dict()
+    # for i in [prem_away, prem_home]: 
+    #     dict_reader = csv.DictReader(open(i))
+    #     for row in dict_reader:
+    #         team_name = ""
+    #         stats = []
             
-            for key,value in row.items():
-                if key == "Team":
-                    team_name = value
-                else:
-                    stats.append(value)
-            team_dict[team_name] = stats
+    #         for key,value in row.items():
+    #             if key == "Team":
+    #                 team_name = value
+    #             else:
+    #                 stats.append(value)
+    #         team_dict[team_name] = stats
 
 
 
@@ -37,7 +39,7 @@ def create_data(training_stats, saka_output, prem_away, prem_home):
 
 
     stats_reader = open(training_stats, "r")                
-    dataset = open("csvFiles\dataset.csv", "a")
+    dataset = open("csvFiles\datasetv1.csv", "a")
     count = 0
     for line in stats_reader.readlines():
         line = line.strip()
@@ -77,13 +79,13 @@ def create_data(training_stats, saka_output, prem_away, prem_home):
         
         
 def main():
-    training_stats_21 = "csvFiles\\training_stats_22.csv"
+    training_stats_21 = "csvFiles\\saka_training_stats_22.csv"
     prem_away_21 = "csvFiles\\21_22_prem_away.csv"
     prem_home_21 = "csvFiles\\21_22_prem_home.csv"
     saka_output_21 = "csvFiles\\21_22_saka_output.csv"
     create_data(training_stats_21, saka_output_21, prem_away_21, prem_home_21)
 
-    training_stats_22 = "csvFiles\\training_stats_23.csv"
+    training_stats_22 = "csvFiles\\saka_training_stats_23.csv"
     prem_away_22 = "csvFiles\\22_23_prem_away.csv"
     prem_home_22 = "csvFiles\\22_23_prem_home.csv"
     saka_output_22 = "csvFiles\\22_23_saka_output.csv"
